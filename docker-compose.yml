@@ -6,7 +6,7 @@ services:
     ports:
      - 5432:5432
     environment:
-     - POSTGRES_PASSWORD=Harshal@05
+     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
   user_app:
     build:
@@ -15,7 +15,7 @@ services:
       network: host
 
     environment:
-      - DATABASE_URL=postgresql://postgres:Harshal@05@postgres:5432/postgres
+      - DATABASE_URL=${DATABASE_URL}
     ports:
       - 3000:3000
     depends_on:
