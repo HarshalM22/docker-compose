@@ -1,4 +1,5 @@
-FROM node:20-alpine
+FROM node:20-slim
+
 
 WORKDIR /app
 
@@ -9,15 +10,13 @@ RUN npm install
 
 COPY . .
 
-RUN apk update && apk add --no-cache openssl
+RUN apt-get update && apt-get install -y openssl
 
-ENV DATABASE_URL=postgresql://postgres:Harshal%4005@localhost:5432/postgres
-RUN echo %DATABASE_URL
 
-RUN DATABASE_URL=$DATABASE_URL npx prisma migrate dev
+
 RUN npx prisma generate
 RUN npm run build 
 
 EXPOSE 3000
 
-CMD ["npm","start"]
+CMD ["npm","run","dev:docker"]
